@@ -26,7 +26,7 @@
                             </div>
                         </div>                        
                     </div>
-                    <input type="number" name="quality" min="1" value="1" style="width: 80px;">
+                    <input type="number" name="quantity" min="1" value="1" style="width: 80px;">
                     <input type="submit" value="add cart">
                 </div>
                 </form>
