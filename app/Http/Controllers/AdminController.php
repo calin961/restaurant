@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Food;
+use App\Models\Foodchef;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 
@@ -91,6 +92,57 @@ class AdminController extends Controller
     {
         $data = Reservation::all();
         return view("admin.adminreservation", compact("data"));
+    }
+
+    public function viewchef()
+    {
+        $data = foodchef::all();
+        return view("admin.adminchef", compact("data"));
+    }
+
+    public function uploadchef(Request $request)
+    {
+        $data = new Foodchef();
+        $image = $request->image;
+        $imagename = time().'.'.$image->getClientOriginalExtension();
+        $request->image->move('chefimage', $imagename);
+        $data->image = $imagename;
+
+        $data->name = $request->name;
+        $data->speciality = $request->speciality;
+        $data->save();
+        return redirect()->back();
+    }
+
+    public function updatechef($id)
+    {
+        $data = foodchef::find($id);
+        return view("admin.updatechef", compact("data"));
+    }
+
+    public function updatefoodchef($id, Request $request)
+    {
+        $data = foodchef::find($id);
+        $image = $request->image;
+
+        if($image){
+            $imagename = time().'.'.$image->getClientOriginalExtension();
+            $request->image->move('chefimage', $imagename);
+            $data->image = $imagename;
+        }
+
+        $data->name = $request->name;
+        $data->speciality = $request->speciality;
+
+        $data->save();
+        return redirect()->back();
+    }
+
+    public function deletechef($id)
+    {
+        $data = Foodchef::find($id);
+        $data->delete();
+        return redirect()->back();
     }
 
 }
