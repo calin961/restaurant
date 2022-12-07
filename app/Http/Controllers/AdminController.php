@@ -7,6 +7,7 @@ use App\Models\Food;
 use App\Models\Foodchef;
 use App\Models\Reservation;
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -91,8 +92,15 @@ class AdminController extends Controller
 
     public function viewreservation()
     {
-        $data = Reservation::all();
-        return view("admin.adminreservation", compact("data"));
+        if(Auth::id())
+        {
+            $data = Reservation::all();
+            return view("admin.adminreservation", compact("data"));
+        }
+        else
+        {
+            return redirect('login');
+        }
     }
 
     public function viewchef()
