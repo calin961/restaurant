@@ -29,6 +29,8 @@ https://templatemo.com/tm-558-klassy-cafe
 
     <link rel="stylesheet" href="assets/css/lightbox.css">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
     </head>
     
     <body>
@@ -123,22 +125,73 @@ https://templatemo.com/tm-558-klassy-cafe
             </div>
         </div>
     </header>
-    <div id="top">
-        <table align="center" bgcolor="yellow" >
-            <tr>
-                <th style="padding: 30px">Food name</th>
-                <th style="padding: 30px">Price</th>
-                <th style="padding: 30px">Quantity</th>
-            </tr>
-            @foreach($data as $data)
-            <tr align="center">
-                <td>{{$data->title}}</td>
-                <td>{{$data->price}}</td>
-                <td>{{$data->quantity}}</td>
-            </tr>
-            @endforeach
-        </table>
+    
+        <div id="top">
+            <table align="center" bgcolor="yellow" style="border: 1px solid black;">
+                <tr style="border: 1px solid black;">
+                    <th style="padding: 30px">Food name</th>
+                    <th style="padding: 30px">Price</th>
+                    <th style="padding: 30px">Quantity</th>
+                    <th style="padding: 30px">Action</th>
+                </tr>
+            <form action="{{url('/orderconfirm')}}" method="post" >
+                @csrf
+                @foreach($data as $data)
+                <tr align="center" style="border: 1px solid black;">
+                    <td><input type="text" name="foodname[]" value="{{$data->title}}" hidden>{{$data->title}}</td>
+                    <td><input type="text" name="price[]" value="{{$data->price}}" hidden>{{$data->price}}</td>
+                    <td><input type="text" name="quantity[]" value="{{$data->quantity}}" hidden>{{$data->quantity}}</td>
+                    
+                </tr>
+                @endforeach
+                @foreach($data2 as $data2)
+                <tr style="position: relative; top: -85px; right: -370px;">
+                    <td><a href="{{url('/remove', $data2->id)}}" class="btn btn-warning">Remove</a></td>
+                </tr>
+                @endforeach
+                
+            </table>
+
+            <div align="center" style="padding: 10px;">
+                <button class="btn btn-primary" type="button" id="order">Order now</button>
+            </div>
+            <div id="appear" align="center" style="padding: 10px; display:none;">
+                <div style="padding: 10px;">
+                    <label for="">Name</label>
+                    <input type="text" name="name" placeholder="name">
+                </div>
+                <div style="padding: 10px;">
+                    <label for="">Phone</label>
+                    <input type="number" name="phone" placeholder="Phone number">
+                </div>
+                <div style="padding: 10px;">
+                    <label for="">Address</label>
+                    <input type="text" name="address" placeholder="Address">
+                </div>
+                <div style="padding: 10px;">
+                    <input class="btn btn-primary" type="submit" value="Order confirm">
+                    <button class="btn btn-danger" type="button" id="close">Close</button>
+                </div>
+                
+            </div>
+        </form>
+
     </div>
+
+    <script type="text/javascript">
+        $("#order").click(
+            function()
+            {
+                $("#appear").show();
+            }
+        );
+        $("#close").click(
+            function()
+            {
+                $("#appear").hide();
+            }
+        );
+    </script>
 
        <!-- jQuery -->
        <script src="assets/js/jquery-2.1.0.min.js"></script>
