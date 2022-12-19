@@ -7,7 +7,7 @@
   <head>
     @include("admin.admincss")
   </head>
-  <body>
+  <body style="overflow: scroll;">
   <div class="container-scroller">
     @include("admin.navbar")
     
@@ -51,4 +51,5 @@
   </div>
     @include("admin.adminscript")    
   </body>
+  <footer></footer>
 </html>

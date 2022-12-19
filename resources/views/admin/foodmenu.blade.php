@@ -10,7 +10,7 @@
   <body>
     <div class="container-scroller">
         @include("admin.navbar")
-        
+       
         <div style="position: relative; top: 60px; right: -150px;">
             <form action="{{url('/uploadfood')}}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -60,7 +60,7 @@
 
         </div>
 
-
+        
     </div>
     @include("admin.adminscript")    
   </body>
